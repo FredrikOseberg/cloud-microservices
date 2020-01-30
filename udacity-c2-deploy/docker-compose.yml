@@ -1,0 +1,44 @@
+version: "3"
+services:
+  reverse-proxy:
+    build: .
+    image: khare123/reverse-proxy
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - backend-user
+      - backend-feed
+  backend-user:
+    image: khare123/udacity-restapi-user
+    volumes:
+        - $HOME/.aws:/root/.aws
+    environment:
+      UDAGRAM_POSTGRESS_USERNAME: $UDAGRAM_POSTGRESS_USERNAME 
+      UDAGRAM_POSTGRESS_PASSWORD: $UDAGRAM_POSTGRESS_PASSWORD 
+      UDAGRAM_POSTGRESS_DATABASE: $UDAGRAM_POSTGRESS_DATABASE 
+      UDAGRAM_POSTGRESS_HOST: $UDAGRAM_POSTGRESS_HOST 
+      UDAGRAM_AWS_REGION: $UDAGRAM_AWS_REGION 
+      UDAGRAM_AWS_PROFILE: $UDAGRAM_AWS_PROFILE 
+      UDAGRAM_AWS_MEDIA_BUCKET: $UDAGRAM_AWS_MEDIA_BUCKET
+      UDAGRAM_JWT_SECRET: $UDAGRAM_JWT_SECRET
+      URL: "http://localhost:8100"
+  backend-feed:
+    image: khare123/udacity-restapi-feed
+    volumes:
+        - $HOME/.aws:/root/.aws
+    environment:
+      UDAGRAM_POSTGRESS_USERNAME: $UDAGRAM_POSTGRESS_USERNAME 
+      UDAGRAM_POSTGRESS_PASSWORD: $UDAGRAM_POSTGRESS_PASSWORD 
+      UDAGRAM_POSTGRESS_DATABASE: $UDAGRAM_POSTGRESS_DATABASE 
+      UDAGRAM_POSTGRESS_HOST: $UDAGRAM_POSTGRESS_HOST 
+      UDAGRAM_AWS_REGION: $UDAGRAM_AWS_REGION 
+      UDAGRAM_AWS_PROFILE: $UDAGRAM_AWS_PROFILE 
+      UDAGRAM_AWS_MEDIA_BUCKET: $UDAGRAM_AWS_MEDIA_BUCKET
+      UDAGRAM_JWT_SECRET: $UDAGRAM_JWT_SECRET
+      URL: "http://localhost:8100"
+  frontend:
+    image: khare123/udacity-frontend:local
+    ports:
+      - 8100:80
+

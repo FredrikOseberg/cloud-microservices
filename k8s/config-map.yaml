@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  UDAGRAM_AWS_MEDIA_BUCKET: udagram-oseberg-dev
+  UDAGRAM_AWS_PROFILE: default
+  UDAGRAM_AWS_REGION: eu-north-1
+  UDAGRAM_JWT_SECRET: hello
+  UDAGRAM_POSTGRESS_DATABASE: udagramoseberg
+  UDAGRAM_POSTGRESS_HOST: udagramoseberg.cige4xjgqidk.eu-north-1.rds.amazonaws.com
+  URL: http://localhost:8100  
+metadata:
+  name: env-config 
+kind: ConfigMap

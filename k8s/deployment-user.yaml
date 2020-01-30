@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-user
+  labels:
+    app: backend-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-user
+  template:
+    metadata:
+      labels:
+        app: backend-user
+    spec:
+      containers:
+      - name: backend-user
+        image: khare123/udacity-restapi-user
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: URL
+        - name: UDAGRAM_JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: UDAGRAM_JWT_SECRET
+        - name: UDAGRAM_POSTGRESS_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: UDAGRAM_POSTGRESS_DATABASE
+        - name: UDAGRAM_POSTGRESS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: UDAGRAM_POSTGRESS_HOST
+        - name: UDAGRAM_AWS_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: UDAGRAM_AWS_REGION
+        - name: UDAGRAM_POSTGRESS_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: env-secret
+              key: UDAGRAM_POSTGRESS_USERNAME
+        - name: UDAGRAM_POSTGRESS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: env-secret
+              key: UDAGRAM_POSTGRESS_PASSWORD
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "/root/.aws/"
+          readOnly: true
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: aws-secret
