@@ -19,5 +19,13 @@ install:
   - docker-compose -f udacity-c2-deploy/docker-compose-build.yaml build --parallel
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker-compose -f udacity-c2-deploy/docker-compose-build.yaml push
+  - kubectl config
+  - kubectl --kubeconfig="$KUBECONFIG"
+  - kubectl set image deployment/backend-user khare123/udacity-restapi-user=khare123/udacity-restapi-user:latest --record
+  - kubectl set image deployment/backend-feed khare123/udacity-restapi-feed=khare123/udacity-restapi-feed:latest --record
+  - kubectl set image deployment/reverse-proxy khare123/reverse-proxy=khare123/reverse-proxy:latest --record
+  - kubectl set image deployment/frontend khare123/udacity-frontend=khare123/udacity-frontend:latest --record
+
+
   
 
