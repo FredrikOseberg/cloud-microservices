@@ -24,7 +24,7 @@ install:
   - kubectl set image deployment/backend-user backend-user=khare123/udacity-restapi-user:latest --record
   - kubectl set image deployment/backend-feed backend-feed=khare123/udacity-restapi-feed:latest --record
   - kubectl set image deployment/reverse-deployment reverse-proxy=khare123/reverse-proxy:latest --record
-  - kubectl set image deployment/frontend frontend=khare123/udacity-frontend:latest --record
+  - kubectl set image deployment/frontend frontend=khare123/udacity-frontend:local --record
 
 
   
