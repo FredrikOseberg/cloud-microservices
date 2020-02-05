@@ -19,7 +19,7 @@ install:
 #   - docker-compose -f udacity-c2-deploy/docker-compose-build.yaml build --parallel
 #   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #   - docker-compose -f udacity-c2-deploy/docker-compose-build.yaml push
-  - gpg --output udacity-k8s-cluster-kubeconfig --decrypt udacity-k8s-cluster-kubeconfig.gpg < echo "$ENCRYPTION_PASSWORD" |
+  - gpg --output udacity-k8s-cluster-kubeconfig --decrypt udacity-k8s-cluster-kubeconfig.gpg < echo "$ENCRYPTION_PASSWORD"
   - kubectl --kubeconfig=udacity-k8s-cluster-kubeconfig
   - kubectl set image deployment/backend-user khare123/udacity-restapi-user=khare123/udacity-restapi-user:latest --record
   - kubectl set image deployment/backend-feed khare123/udacity-restapi-feed=khare123/udacity-restapi-feed:latest --record
