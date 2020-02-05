@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: frontend
+    service: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      service: frontend
   template:
     metadata:
       labels:
-        app: frontend
+        service: frontend
         api: external        
     spec:
       containers:
@@ -20,3 +20,4 @@ spec:
         image: khare123/udacity-frontend:local
         ports:
         - containerPort: 80
+          protocol: TCP

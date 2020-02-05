@@ -3,23 +3,21 @@ kind: Deployment
 metadata:
   name: backend-feed
   labels:
-    app: backend-feed
+    service: backend-feed
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend-feed
+      service: backend-feed
   template:
     metadata:
       labels:
-        app: backend-feed
+        service: backend-feed
     spec:
       containers:
       - name: backend-feed
         image: khare123/udacity-restapi-feed
         imagePullPolicy: Always
-        ports:
-        - containerPort: 80
         env:
         - name: URL
           valueFrom:
@@ -31,16 +29,21 @@ spec:
             configMapKeyRef:
               name: env-config
               key: UDAGRAM_JWT_SECRET
-        - name: UDAGRAM_POSTGRESS_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              name: env-config
-              key: UDAGRAM_POSTGRESS_DATABASE
         - name: UDAGRAM_POSTGRESS_HOST
           valueFrom:
             configMapKeyRef:
               name: env-config
               key: UDAGRAM_POSTGRESS_HOST
+        - name: UDAGRAM_POSTGRESS_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: UDAGRAM_POSTGRESS_DATABASE
+        - name: UDAGRAM_AWS_MEDIA_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: UDAGRAM_AWS_MEDIA_BUCKET
         - name: UDAGRAM_AWS_REGION
           valueFrom:
             configMapKeyRef:

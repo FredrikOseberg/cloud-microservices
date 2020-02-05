@@ -18,7 +18,8 @@ import { V0MODELS } from './controllers/v0/model.index';
 
   //CORS Should be restricted
   app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:8100");
+    console.log("Hitting server")
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
   });
